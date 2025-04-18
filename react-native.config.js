@@ -1,4 +1,7 @@
 module.exports = {
-    assets: ['./assets/fonts'], // Include the path to the fonts
+  project: {
+    ios: {},
+    android: {},
+  },
+    assets: ['./app/assets/fonts/'], // Include the path to the fonts
   };
-  

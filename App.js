@@ -1,10 +1,10 @@
-import {View, Text,SafeAreaView} from 'react-native';
-import SplashScreen from './app/screens/splash'
+import RootStack from './app/navigation/RootStack';
+import {NavigationContainer} from '@react-navigation/native';
  const App = () => {
   return (
-    <View>
-      <SplashScreen/>
-    </View>
+    <NavigationContainer>
+      <RootStack/>
+    </NavigationContainer>
   );
 }
 
