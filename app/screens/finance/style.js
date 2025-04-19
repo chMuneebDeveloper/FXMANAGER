@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     fontFamily: FontFamilies.InterSemiBold,
   },
   containerStyle: {
-    marginTop: sizeHelper.calHp(20),
+    marginTop: sizeHelper.calHp(40),
     width: '92%',
     margin: sizeHelper.calHp(50),
     padding: sizeHelper.calHp(30),
@@ -172,6 +172,7 @@ const styles = StyleSheet.create({
     height: sizeHelper.calHp(500),
     width: '100%',
     alignSelf: 'center',
+    justifyContent: 'center',
   },
 });
 

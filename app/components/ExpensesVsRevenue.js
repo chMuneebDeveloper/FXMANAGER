@@ -14,7 +14,7 @@ const interSbold = require('../assets/fonts/InterSBold.ttf');
 const interBold = require('../assets/fonts/InterBold.ttf');
 
 
-const TwoLineGraph = ({
+const ExpensesVsRevenue = ({
   data,
   firstName,
   secondName,
@@ -112,7 +112,7 @@ console.log('data............',data)
           {({points, chartBounds}) => (
             <>
               <SKText
-                x={sizeHelper.calWp(145)}
+                x={sizeHelper.calWp(140)}
                 y={10}
                 font={chartFont}
                 text={
@@ -233,4 +233,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TwoLineGraph;
+export default ExpensesVsRevenue;

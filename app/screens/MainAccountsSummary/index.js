@@ -57,6 +57,8 @@ const MainAccountsSummary = props => {
     if (res.Data !== null) {
       setReportList(prevData => [...prevData, ...res.Data]);
       setReportData(res.Data);
+    }else{
+      Alert.alert('Alert', 'Record is not found.');
     }
     setLaoding(false);
   };
@@ -126,6 +128,8 @@ const MainAccountsSummary = props => {
       console.log('all srray is', srray);
       setSalesItems(srray);
       setLaoding(false);
+    }else{
+      Alert.alert('Alert', 'Record is not found.');
     }
   };
 
@@ -168,7 +172,7 @@ const MainAccountsSummary = props => {
     } else {
       setReportList(null);
       setLaoding(false);
-      Alert.alert(i18n.t('dtanotfound'));
+      Alert.alert('Alert', 'Record is not found.');
     }
   };
 

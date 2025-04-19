@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
   itemText: {
     paddingHorizontal: sizeHelper.calWp(30),
     paddingVertical: sizeHelper.calWp(20),
-    fontSize: sizeHelper.calHp(40),
+    fontSize: sizeHelper.calHp(28),
     fontWeight: '500',
     color: 'black',
     fontFamily: 'InterMedium',

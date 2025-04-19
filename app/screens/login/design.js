@@ -8,6 +8,7 @@ import {
   StatusBar,
   I18nManager,
   TouchableOpacity,
+  useColorScheme,
 } from 'react-native';
 import {Formik} from 'formik';
 import * as yup from 'yup';
@@ -30,6 +31,9 @@ const Design = ({
   isLoading,
   managerLogin
 }) => {
+  const colorScheme = useColorScheme();
+  const isDarkMode = colorScheme === 'dark';
+
   const loginValidationSchema = yup.object().shape({
     userName: yup.string().required('Name is required'),
     password: yup.string().required('Password is required'),
@@ -122,11 +126,13 @@ const Design = ({
                 <TextInput
                   style={{
                     width: '90%',
+                    color: isDarkMode ? '#000' : '#000',
                   }}
                   name={'password'}
                   onChangeText={handleChange('password')}
+                  placeholderTextColor={isDarkMode ? '#888' : '#aaa'}
                   placeholder="********"
-                  placeholderTextColor={gray1}
+                  // placeholderTextColor={gray1}
                   secureTextEntry={!isVisiblePassword}
                   value={values.password}
                   // value={}

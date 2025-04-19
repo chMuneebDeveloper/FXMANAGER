@@ -9,7 +9,7 @@ const FinanceScreen = (props) => {
   const [selectedMenu, setSelectedMenu] = useState();
   const [isLoading, setLoading] = useState(false);
   const [financeGraphs, setFinanceGraphs] = useState();
-
+  const [refreshing, setRefreshing] = useState(false);
   // helper function to calculate the absolute value safely
   const getAbs = (val) =>
     val === undefined ? 0 : val < 0 ? Math.abs(val) : val;
@@ -140,6 +140,14 @@ const FinanceScreen = (props) => {
     financeData();
   }, []);
 
+  const onRefresh = () => {
+    setRefreshing(true);
+    financeData();
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 500); 
+  };
+
   const moveToProfile = () => {
     props.navigation.navigate('profile');
   };
@@ -164,6 +172,8 @@ const FinanceScreen = (props) => {
       financeGraphs={financeGraphs}
       moveToPartnerStatementofAccounts={moveToPartnerStatementofAccounts}
       moveToMainAccountsSummary={moveToMainAccountsSummary}
+      refreshing={refreshing}
+      onRefresh={onRefresh}
     />
   );
 };

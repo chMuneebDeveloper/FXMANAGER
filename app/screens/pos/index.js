@@ -14,7 +14,6 @@ const [refreshing, setRefreshing] = useState(false);
 const [isLoading, setLoading] = useState(false);
 const [isAlert, setAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
-
 const POSData = useCallback(async () => {
   setLoading(true);
   const dashboardUrl = `${GET_ADMIN_POSDATA}${list.CultureCode}`; 
@@ -39,7 +38,7 @@ const POSData = useCallback(async () => {
     const salesAgentData = [];
     const productFamiliesData = [{GraphID: '4', StringName: '', Count: 0}];
     const productFamiliesDataReq = { labels: [], datasets: [{ data: [], color: () => 'rgba(31, 85, 218, 1)' }] };
-
+// let totalCount = 0 ;
     res.Data.forEach(({ GraphID, StringName, Count,Amount }) => {
       
       switch (GraphID) {
@@ -58,13 +57,15 @@ const POSData = useCallback(async () => {
             // const formattedName = /^[a-z0-9]+$/i.test(StringName) ? StringName : convertRtl(StringName);
             const name = StringName.slice(0,6);
             productFamiliesDataReq.labels.push(name);
+            // totalCount = totalCount + Count;
             productFamiliesDataReq.datasets[0].data.push(Count);
             productFamiliesData.push({ GraphID, StringName: name, Count });
+            
           }
           break;
       }
     });
-
+    // productFamiliesData.push(totalCount);
     setPOSGraphs(prevState => {
       const newState = { ...res.Data, commonPOSInfo, counterSalesData, salesAgentData, productFamiliesData, productFamiliesDataReq };
       return JSON.stringify(prevState) === JSON.stringify(newState) ? prevState : newState;
@@ -80,6 +81,15 @@ useEffect(() => {
   POSData();
 }, []);
 
+const onRefresh = () => {
+  setRefreshing(true);
+  POSData();
+  // Simulate a network request or some other async operation
+  setTimeout(() => {
+    // Do something after the refresh is complete
+    setRefreshing(false);
+  }, 500); // You can adjust the timeout as needed
+};
 
 
     const moveToProfile = () => {
@@ -92,7 +102,9 @@ useEffect(() => {
 
     return(
         <Design moveToProfile={moveToProfile} TabsNavigations={TabsNavigations} isLoading={isLoading}
-        pOSGraphs={pOSGraphs}/>
+        pOSGraphs={pOSGraphs}
+        onRefresh={onRefresh}
+        refreshing={refreshing}/>
     );
 };
 

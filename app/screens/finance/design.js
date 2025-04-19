@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Image,
+  RefreshControl
 } from 'react-native';
 import {CartesianChart, Line, useChartPressState, Area} from 'victory-native';
 import {
@@ -24,6 +25,7 @@ import BinaryDataComponent from '../../components/BinaryDataComponent';
 import {gray2} from '../../constants/colors';
 import ToolTip from '../../components/ToolTip';
 import TwoLineGraph from '../../components/TwoLineGraph';
+import ExpensesVsRevenue from '../../components/ExpensesVsRevenue';
 const interSbold = require('../../assets/fonts/InterSBold.ttf');
 const interBold = require('../../assets/fonts/InterBold.ttf');
 
@@ -35,6 +37,8 @@ const Design = ({
   financeGraphs,
   moveToPartnerStatementofAccounts,
   moveToMainAccountsSummary,
+  refreshing,
+  onRefresh
 }) => {
   const {state: pressState, isActive} = useChartPressState(INIT_STATE);
   const font = useFont(interSbold, sizeHelper.calHp(24));
@@ -102,7 +106,10 @@ const Design = ({
         </View>
         <NavigationHeader TabsNavigations={TabsNavigations} />
       </View>
-      <ScrollView>
+      <ScrollView
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }>
         <View>
           <View style={styles.rowBtnContainer}>
             <TouchableOpacity
@@ -125,12 +132,11 @@ const Design = ({
             <View style={styles.rowComponents}>
               <View style={styles.textContainer}>
                 <Text style={styles.headingTxt}>{'Expenses Vs Revenue'}</Text>
-                <Text style={styles.subHeading}>{'View details'}</Text>
               </View>
             </View>
             <View style={styles.graphContainer}>
               {financeGraphs?.expenseVsRevence ? (
-                 <TwoLineGraph
+                 <ExpensesVsRevenue
                  data={financeGraphs?.expenseVsRevence}
                  firstName={'Revenue'}
                  secondName={'Expences'}

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import {View, Text,StyleSheet,TouchableOpacity,I18nManager} from 'react-native';
+import {View, Text,StyleSheet,TouchableOpacity,I18nManager,Platform} from 'react-native';
 import { blue1, blue2, white } from '../constants/colors';
 import sizeHelper from '../helpers/sizeHelper';
 import Feather from 'react-native-vector-icons/Feather';
@@ -7,7 +7,10 @@ const Header =({goBack,text,moveToProfile})=>{
 
 
     return(
-    <View style={styles.mainContainer}>
+    <View style={[styles.mainContainer,{
+      paddingTop: Platform.OS === 'android'?sizeHelper.calHp(30): sizeHelper.calHp(120),
+        height:  Platform.OS === 'android'? sizeHelper.calHp(200): sizeHelper.calHp(250),
+        }]}>
         {goBack?<TouchableOpacity
         onPress={goBack}>
             <Feather
@@ -40,8 +43,7 @@ const Header =({goBack,text,moveToProfile})=>{
 
 const styles = StyleSheet.create({
     mainContainer:{
-        paddingTop: sizeHelper.calHp(120),
-        height:sizeHelper.calHp(250),
+        
         backgroundColor:blue2,
         justifyContent:'space-between',
         alignItems:'center',

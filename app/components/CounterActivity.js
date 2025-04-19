@@ -1,6 +1,7 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import Feather from 'react-native-vector-icons/Feather';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { black, black1, blue1, white } from '../constants/colors';
 import sizeHelper from '../helpers/sizeHelper';
  
@@ -9,7 +10,7 @@ const CounterActivity = ({data}) => {
 
     const mappedData = data.map((item, index) => ({
       id: index + 1,
-      icon: index === 0 ?  'shopping-cart':index === 1 ? 'calendar' : 'clock' ,
+      icon: index === 0 ?  'file-remove-outline':index === 1 ? 'desktop-mac' : 'desktop-access-disabled' ,
       text: item.StringName,
       percentage: item.Count,
     }));
@@ -19,7 +20,12 @@ const CounterActivity = ({data}) => {
       <View style={styles.overAll}>
         {mappedData.map((item, index) => (
           <View key={item.id} style={styles.rowContainer}>
-              <Feather name={item.icon} size={sizeHelper.calHp(50)} color={blue1} style={styles.roundIconContainer} />
+            {item.icon== 'file-remove-outline'?
+            <MaterialCommunityIcons name={item.icon} size={sizeHelper.calHp(50)} color={blue1} style={styles.roundIconContainer} />
+            :
+            <MaterialIcons name={item.icon} size={sizeHelper.calHp(50)} color={blue1} style={styles.roundIconContainer} />
+            }
+              
             <Text style={styles.rowText}>{item.text}</Text>
             <View style={{flex: 1}}>
               <Text style={styles.percentageText}>{item.percentage}</Text>
@@ -61,7 +67,7 @@ const styles = StyleSheet.create({
   },
   roundIconContainer: {
     padding:sizeHelper.calHp(25),
-    borderRadius: sizeHelper.calHp(50),
+    borderRadius: sizeHelper.calHp(100),
     backgroundColor: '#e6e7f5',
     overflow: 'hidden',
     justifyContent: 'center',
@@ -75,6 +81,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     paddingHorizontal: sizeHelper.calWp(20),
     fontSize: sizeHelper.calHp(30),
+    textTransform: 'capitalize', // or 'capitalize', 'uppercase', 'lowercase'
   },
   percentageText: {
     color: blue1,

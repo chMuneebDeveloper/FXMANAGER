@@ -6,6 +6,7 @@ import {
   FlatList,
   TouchableOpacity,
   Modal,
+  RefreshControl
 } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import Header from '../../components/Header';
@@ -28,6 +29,7 @@ import TwoLineGraph from '../../components/TwoLineGraph';
 import TopSoldProductComponent from '../../components/TopSoldProductComponent';
 import Icon from 'react-native-vector-icons/Feather';
 import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
+import SaleVsPurchase from '../../components/SaleVsPurchase';
 
 const Design = ({
   items,
@@ -48,7 +50,9 @@ const Design = ({
   setItems,
   setValueMonth,
   moveToPurchesVsSale,
-  moveToPayableVsReceivables
+  moveToPayableVsReceivables,
+  onRefresh,
+  refreshing
 }) => {
   const modalData = [
     {id: 1, label: 'Product A '},
@@ -128,6 +132,9 @@ const Design = ({
       </View>
 
       <ScrollView
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
       nestedScrollEnabled={true}>
         <View style={styles.row}>
           <Text style={styles.textGo}>GoDowns</Text>
@@ -142,12 +149,12 @@ const Design = ({
             />
           </TouchableOpacity>
         </View>
-
-        <View style={styles.containerStyle}>
+{dashBoardData?.purchaseVSSaleGraph&&
+(
+<View style={styles.containerStyle}>
           <View style={styles.rowComponents}>
             <View style={styles.textContainer}>
               <Text style={styles.headingTxt}>{'Sale Vs Purchase'}</Text>
-              <Text style={styles.subHeading}>{'Sales details'}</Text>
             </View>
             {/* <View
               style={{
@@ -199,10 +206,10 @@ const Design = ({
           </View>
           <View style={styles.graphContainer}>
             {!modalVisible && (
-              <TwoLineGraph
+              <SaleVsPurchase
                 data={dashBoardData?.purchaseVSSaleGraph}
                 firstName={'Purchase'}
-                secondName={' Sale'}
+                secondName={'Sale'}
                 firstLineColor={blue2}
                 firstGRBA={'rgba(89, 95, 213, 0.1)'}
                 secondLineColor={red}
@@ -211,11 +218,12 @@ const Design = ({
             )}
           </View>
         </View>
+)}
+       {dashBoardData?.reportingOfCreditBills&&(
         <View style={styles.containerStyle}>
           <View style={styles.rowComponents}>
             <View style={styles.textContainer}>
-              <Text style={styles.headingTxt}>{'Receivable Vs Payables'}</Text>
-              <Text style={styles.subHeading}>{'View details'}</Text>
+              <Text style={styles.headingTxt}>{'Receivables Vs Payables'}</Text>
             </View>
             <TouchableOpacity  style={styles.fileIcon} onPress={moveToPayableVsReceivables}>
                 <Icon1
@@ -231,7 +239,7 @@ const Design = ({
               <TwoLineGraph
                 data={dashBoardData?.reportingOfCreditBills}
                 firstName={'Payables'}
-                secondName={'Receivable'}
+                secondName={'Receivables'}
                 firstLineColor={blue}
                 firstGRBA={'rgba(0, 68, 169, 0.1)'}
                 secondLineColor={yellow}
@@ -240,12 +248,13 @@ const Design = ({
             )}
           </View>
         </View>
+       )}
+        
 
         <View style={styles.containerStyle}>
           <View style={styles.rowComponents}>
             <View style={styles.textContainer}>
               <Text style={styles.headingTxt}>{'Top Sold Products'}</Text>
-              <Text style={styles.subHeading}>{'View details'}</Text>
             </View>
           </View>
 
@@ -266,7 +275,7 @@ const Design = ({
                   return (
                     <TopSoldProductComponent
                       text={item.name}
-                      numberText={item.percentage + ' %'}
+                      numberText={item.population}
                       backgroundColor={item.color}
                       width={item.percentage + '%'}
                       borderBottomWidth={

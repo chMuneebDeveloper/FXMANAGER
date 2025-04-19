@@ -2,6 +2,7 @@ import {Text, View, StyleSheet, ScrollView, FlatList} from 'react-native';
 import React from 'react';
 import CardComponent from './CardComponent';
 import sizeHelper from '../helpers/sizeHelper';
+import FontFamilies from '../constants/Fonts';
 const BillDetails = ({item}) => {
   console.log('item at billdetails page.......... ', item);
 
@@ -83,7 +84,7 @@ const BillDetails = ({item}) => {
                     justifyContent: 'space-between',
                   }}>
                   <View>
-                    <Text style={styles.textStyles}>{item?.Name}</Text>
+                    <Text style={styles.textStyles}>{item?.Name?.slice(0,10)}</Text>
                   </View>
                   <View>
                     <Text style={styles.textStyles}>
@@ -99,7 +100,7 @@ const BillDetails = ({item}) => {
                         fontFamily: 'InterBold',
                         fontSize: sizeHelper.calHp(29),
                       }}>
-                      PK {item?.NetPrice}
+                      PK {item?.NetPrice?.toFixed(2)}
                     </Text>
                   </View>
                 </View>
@@ -127,7 +128,7 @@ const BillDetails = ({item}) => {
             <View style={[styles.widthConatiner]}>
               <View style={styles.textContainer}>
                 <Text style={styles.keyTextValues}>{'Sub total'}</Text>
-                <Text style={styles.valuesTextStyle}>{item?.GrandAmount}</Text>
+                <Text style={styles.valuesTextStyle}>{item?.GrandAmount?.toFixed(2)}</Text>
               </View>
               <View style={styles.textContainer}>
                 <Text style={styles.keyTextValues}>{'Tax'}</Text>
@@ -137,7 +138,7 @@ const BillDetails = ({item}) => {
               </View>
               <View style={styles.textContainer}>
                 <Text style={styles.keyTextValues}>{'Net Total'}</Text>
-                <Text style={styles.valuesTextStyle}>{item?.NetAmount}</Text>
+                <Text style={styles.valuesTextStyle}>{item?.NetAmount?.toFixed(2)}</Text>
               </View>
             </View>
           </View>
@@ -161,10 +162,10 @@ const styles = StyleSheet.create({
   },
   keyStyl: {
     color: '#25272E',
-    fontWeight: 'bold',
+    fontWeight: '600',
     marginRight: sizeHelper.calWp(10),
-    fontFamily: 'InterBold',
-    fontSize: sizeHelper.calHp(29),
+    fontFamily: FontFamilies.InterSemiBold,
+    fontSize: sizeHelper.calHp(28),
   },
   searchContainer: {
     padding: sizeHelper.calHp(20),
@@ -180,14 +181,14 @@ const styles = StyleSheet.create({
   headingText: {
     color: '#FFFFFF',
     fontSize: sizeHelper.calHp(28),
-    fontFamily: 'InterBold',
+    fontFamily: FontFamilies.InterSemiBold,
     fontWeight: '500',
     textAlign: 'right',
     // marginHorizontal: sizeHelper.calHp(15),
   },
   subHeading: {
     color: '#FFFFFF',
-    fontSize: sizeHelper.calHp(26),
+    fontSize: sizeHelper.calHp(28),
     fontFamily: 'InterMedium',
     fontWeight: '500',
     textAlign: 'left',
@@ -224,8 +225,8 @@ const styles = StyleSheet.create({
   },
   nameTxtStyle: {
     color: '#FFFFFF',
-    fontSize: sizeHelper.calHp(32),
-    fontFamily: 'InterBold',
+    fontSize: sizeHelper.calHp(34),
+    fontFamily: FontFamilies.InterSemiBold,
   },
   btnContainer: {
     backgroundColor: '#25272E',
@@ -237,7 +238,7 @@ const styles = StyleSheet.create({
   loginButton: {
     color: 'white',
     fontSize: sizeHelper.calHp(37),
-    fontFamily: 'InterBold',
+    fontFamily: FontFamilies.InterSemiBold,
     textAlign: 'center',
     padding: sizeHelper.calHp(20),
   },
@@ -254,13 +255,15 @@ const styles = StyleSheet.create({
   },
   keyTextValues: {
     color: '#25272E',
-    fontWeight: 'bold',
+    fontWeight: '600',
+    fontSize:sizeHelper.calHp(30),
     marginRight: sizeHelper.calWp(10),
-    fontFamily: 'InterBold',
+    fontFamily: FontFamilies.InterSemiBold,
   },
   valuesTextStyle: {
     color: '#9D9C9C',
     marginRight: sizeHelper.calWp(10),
-    fontFamily: 'InterBold',
+    fontFamily: FontFamilies.InterSemiBold,
+    fontSize:sizeHelper.calHp(30)
   },
 });

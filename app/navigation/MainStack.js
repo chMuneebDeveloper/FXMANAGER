@@ -17,7 +17,7 @@ const Stack = createNativeStackNavigator();
 const MainStack = () => {
   return (
     <Stack.Navigator
-      initialRouteName={'Procurement'}
+      initialRouteName={'Finance'}
       screenOptions={{gestureEnabled: false}}>
       <Stack.Screen
         options={{headerShown: false}}

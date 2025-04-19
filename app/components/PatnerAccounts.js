@@ -36,7 +36,10 @@ const PatnerAccounts = ({
     <View>
       <View style={styles.colorbodyContainer}>
         <DropDownPicker
-          style={styles.dropDown}
+          style={{...styles.dropDown,
+            borderRadius: open
+            ? sizeHelper.calHp(50)
+            : sizeHelper.calHp(100),}}
           zIndex={isLoading ? 0 : 1}
           open={open}
           value={value}

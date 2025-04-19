@@ -16,10 +16,18 @@ import Loading from './Loading';
 const interSbold = require('../assets/fonts/InterSBold.ttf');
 const interBold = require('../assets/fonts/InterBold.ttf');
 
-const INIT_STATE = {x: 0, y: {Count: 0, Amount: 0}};
+
 
 const LineGraph = ({graphHeeading, data, xLabelName, yLabelName}) => {
   console.log(' POS Graphs data is ', data);
+
+  let totalAmount = 0;
+  
+  data.forEach(item => {
+    totalAmount += Number(item.Amount);
+  });
+
+  const INIT_STATE = {x: 0, y: {Count: 0, Amount: totalAmount}};
   const {state: pressState, isActive} = useChartPressState(INIT_STATE);
   const font = useFont(interSbold, sizeHelper.calHp(24));
   const chartFont = useFont(interBold, 12);

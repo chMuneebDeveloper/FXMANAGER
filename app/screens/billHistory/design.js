@@ -14,7 +14,7 @@ import sizeHelper from '../../helpers/sizeHelper';
 import styles from './style';
 import Header from '../../components/Header';
 import Feather from 'react-native-vector-icons/Feather';
-import {black, blue, blue1, white} from '../../constants/colors';
+import {black, blue, blue1, gray, gray1, gray2, gray3, gray4, white} from '../../constants/colors';
 import Loading from '../../components/Loading';
 import FontFamilies from '../../constants/Fonts';
 import BillDetails from '../../components/BillDetails';
@@ -105,7 +105,7 @@ const Design = ({
           <View style={styles.rowComp}>
             <Feather
               name={'search'}
-              color={black}
+              color={gray3}
               size={sizeHelper.calHp(40)}
             />
             <TextInput
@@ -114,13 +114,14 @@ const Design = ({
               placeholder={
                 value == 'sales' ? 'Search Sale ID' : 'Search Purchase ID'
               }
-              placeholderTextColor={'grey'}
+              placeholderTextColor={gray3}
               // onChangeText={(text) =>  {
               //   setSearch(text)
               //   searchFilterFunction(text)
               // }}
               // autoFocus={true}
-              onEndEditing={event => searchFilterFunction(event.nativeEvent.text)}
+              onChangeText={(text)=>{setSearch(text)}}
+              onEndEditing={()=> {searchFilterFunction()}}
               style={styles.textInputStyles}
             />
             <DropDownPicker
@@ -128,18 +129,18 @@ const Design = ({
                 backgroundColor: '#FFFFFF',
                 borderTopLeftRadius: 0,
                 borderBottomLeftRadius: 0,
-                marginLeft: sizeHelper.calWp(6),
-                width: '31%',
+                // marginLeft: sizeHelper.calWp(6),
+                width: '32.5%',
                 borderTopRightRadius: open
                   ? sizeHelper.calHp(85)
                   : sizeHelper.calHp(100),
                 borderBottomRightRadius: sizeHelper.calHp(100),
-                borderLeftWidth: 1,
+                borderLeftWidth: 3,
                 borderWidth: 0,
               }}
               open={open}
               textStyle={{
-                fontSize: sizeHelper.calHp(27),
+                fontSize: sizeHelper.calHp(28),
               }}
               value={value}
               items={items}
@@ -148,9 +149,9 @@ const Design = ({
               setItems={setItems}
               zIndex={0}
               dropDownContainerStyle={{
-                width: '31%',
+                width: '32.5%',
                 borderWidth: 0,
-                marginLeft: sizeHelper.calWp(7.2),
+                // marginLeft: sizeHelper.calWp(7.2),
                 borderTopRightRadius: open
                   ? sizeHelper.calHp(100)
                   : sizeHelper.calHp(20),

@@ -22,9 +22,9 @@ const styles = StyleSheet.create({
     borderRadius: sizeHelper.calHp(70),
     margin: sizeHelper.calHp(25),
     alignItems: 'center',
-    width: '90%',
+    width: '88%',
     alignSelf:"center",
-    paddingHorizontal:10,
+    paddingHorizontal:sizeHelper.calWp(25),
   },
   textStyle: {
     fontSize: sizeHelper.calHp(40),
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     paddingLeft: sizeHelper.calWp(25),
     width: '68%',
     color: '#25272E',
-    fontSize: sizeHelper.calHp(32),
+    fontSize: sizeHelper.calHp(30),
     fontFamily: 'InterMedium',
     textAlign: 'left',
     backgroundColor: '#FFFFFF',
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   },
   allOrderHistoryText: {
     // width:size(460),
-    height: sizeHelper.calHp(100),
+    paddingVertical:sizeHelper.calHp(30),
     width: '90%',
     backgroundColor: 'white',
     borderRadius: sizeHelper.calHp(2),
@@ -94,14 +94,6 @@ const styles = StyleSheet.create({
     height: sizeHelper.calHp(40),
     width: '15%',
     // backgroundColor: 'green',
-  },
-  searchIconImage: {
-    height: sizeHelper.calHp(40),
-    width: sizeHelper.calWp(40),
-    resizeMode: 'contain',
-    position: 'absolute',
-    zIndex: 1,
-    marginLeft: sizeHelper.calWp(60),
   },
 });
 

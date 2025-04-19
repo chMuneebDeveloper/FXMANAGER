@@ -151,7 +151,7 @@ const PartnerStatementofAccounts = props => {
     } else {
       setReportList(null);
       setLaoding(false);
-      Alert.alert('Alert', 'Recored is not Found');
+      Alert.alert('Alert', 'Record is not Found');
     }
   };
 

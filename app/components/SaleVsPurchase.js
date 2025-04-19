@@ -9,12 +9,12 @@ import {
 } from '@shopify/react-native-skia';
 import {blue2, red} from '../constants/colors';
 import sizeHelper from '../helpers/sizeHelper';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 const interSbold = require('../assets/fonts/InterSBold.ttf');
 const interBold = require('../assets/fonts/InterBold.ttf');
 
 
-const TwoLineGraph = ({
+const SaleVsPurchase = ({
   data,
   firstName,
   secondName,
@@ -23,6 +23,7 @@ const TwoLineGraph = ({
   secondLineColor,
   secondRGBA,
 }) => {
+  const [sale,setsele]= useState(0)
   let totalValue = 0;
 let totalField4 = 0;
 
@@ -233,4 +234,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TwoLineGraph;
+export default SaleVsPurchase;

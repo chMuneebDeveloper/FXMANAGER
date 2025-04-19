@@ -254,7 +254,7 @@ const Design = ({
                 paddingBottom: sizeHelper.calHp(30),
                 color: yellow,
               }}>
-              {'Please Select an Account Name or Sales Agent Name'}
+              {'Please Select an Account Name'}
             </Text>
           )}
           <View style={styles.colorbodyContainer}>

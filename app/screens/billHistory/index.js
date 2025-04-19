@@ -13,7 +13,7 @@ const BillHistory = props => {
   const [isLoadMore, setLoadmore] = useState(true);
   const [order, setOrders] = useState([]);
   const [filterOrders, setFilterOrder] = useState([]);
-  const [search, setSearch] = useState([]);
+  const [search, setSearch] = useState('');
   const [getDetails, setGetDetails] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState('Sales');
@@ -30,15 +30,15 @@ const BillHistory = props => {
     props.navigation.navigate('profile');
   };
 
-  const searchFilterFunction = async(text) => {
+  const searchFilterFunction = async() => {
     setLoading(true);
-    if (text) {
+    if (search) {
       
     const token = await AsyncStorage.getItem('MY_TOKEN');
       setLoadmore(false);
       let orderUrl = 
   (value === 'sales' ? GET_SALES_ORDERS : GET_PURCHASE_ORDERS) +
-  'skip=1&next=30&filterText=' + encodeURIComponent(text) +
+  'skip=1&next=30&filterText=' + encodeURIComponent(search) +
   '&sortby=2&sort=ASC&cultureCode=' + encodeURIComponent(list.CultureCode);
 
     console.log('url is', orderUrl);
@@ -47,14 +47,17 @@ const BillHistory = props => {
     if(res.Data !== null){
       value === 'sales'? setOrders(res.Data) : setFilterOrder(res.Data);
     }else{
-      Alert.alert('Alert','Record is not fopund');
+      Alert.alert('Alert','Record is not found');
+      setLoading(false);
     }
       
       // setSearch(text);
     } else {
-      setLoadmore(true);
-      setFilterOrder(order);
-      setSearch(text);
+      if(value=='sales'){
+        getOrders();
+      }else if(value=='purchase'){
+        getPurchaseOrders();
+      }
     }
     setLoading(false);
   };
@@ -83,7 +86,7 @@ const BillHistory = props => {
       setLoading(false);
     }else{
       setLoading(false);
-      Alert.alert('Alert',"Record is not foun.");
+      Alert.alert('Alert',"Record is not found.");
     }
   };
   const getPurchaseOrders = async () => {
@@ -110,7 +113,7 @@ const BillHistory = props => {
       setLoading(false);
     }else{
       setLoading(false);
-      Alert.alert('Alert',"Record is not foun.")
+      Alert.alert('Alert',"Record is not found.")
     }
   };
 
@@ -153,6 +156,7 @@ const BillHistory = props => {
   useEffect(()=>{
     setOrders([]);
     setFilterOrder([]);
+    setSearch('');
     if(value=='sales'){
       getOrders();
     }else if(value=='purchase'){

@@ -122,6 +122,7 @@ const ProcurementScreen = props => {
         res.Data.forEach(element => {
           if (element.GraphID == '401') {
             element.Field4 = Number(Number(element.Field4).toFixed(0));
+            
             res.Data.purchaseVSSaleGraph.push(element);
           } else if (element.GraphID == '402') {
             res.Data.topSaleProducts.push(element);
@@ -285,7 +286,9 @@ const ProcurementScreen = props => {
             }
           });
           let sArray = [];
+          
           res.Data?.reportingOfCreditBills.forEach(element => {
+          
             let half = String(element.StringText).slice(0, 3);
             element.StringText = half;
             let nam = element.StringText;
@@ -398,6 +401,20 @@ const ProcurementScreen = props => {
     getDashboardData();
     getSeletedgoDown();
   }, []);
+
+  const onRefresh = async () => {
+    setRefreshing(true);
+    getSeletedgoDown();
+    getDashboardData();
+    const getValue = await AsyncStorage.getItem('GoDownValue');
+    setValue(getValue);
+    // Simulate a network request or some other async operation
+    setTimeout(() => {
+      // Do something after the refresh is complete
+      setRefreshing(false);
+    }, 500); // You can adjust the timeout as needed
+  };
+
   return (
     <Design
     items={items}
@@ -418,6 +435,8 @@ const ProcurementScreen = props => {
       setOpen={setOpen}
       moveToPurchesVsSale={moveToPurchesVsSale}
       moveToPayableVsReceivables={moveToPayableVsReceivables}
+      onRefresh={onRefresh}
+      refreshing={refreshing}
     />
   );
 };
