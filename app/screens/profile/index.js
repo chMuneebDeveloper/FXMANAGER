@@ -148,7 +148,12 @@ const ProfileScreen = props => {
   const logoutUser = async () => {
     console.log('logout calling');
     try {
-      await AsyncStorage.setItem('MY_TOKEN', '');
+        await AsyncStorage.removeItem('MODULEIDS');        ;
+        await AsyncStorage.removeItem('MY_TOKEN',);
+        await AsyncStorage.removeItem('My_Data');
+        await AsyncStorage.removeItem('GoDownCode');
+        await AsyncStorage.removeItem('GoDownValue');
+
       props.navigation.replace('Auth');
     } catch (e) {
       console.log('logout calling');

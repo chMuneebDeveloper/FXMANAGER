@@ -43,14 +43,13 @@ const Design = ({
   filterOrders,
   totalRecord
 }) => {
-  console.log('object.....', filterOrders);
 
   const listFooter = () => {
-    if (totalRecord == filterOrders?.length)  return null;
+    if (totalRecord ==( value=='sales'? order?.length :filterOrders?.length))  return null;
     return (
       // totalRecord && (
       <View>
-        {isLoadMore == true?
+        {isLoadMore !== true?
         <View
           style={{
             width: '100%',
@@ -193,7 +192,7 @@ const Design = ({
             <Text style={[styles.headinTextStyle, {width: '33%'}]}>Date</Text>
             <View style={styles.spaceContainer}></View>
           </View>
-          <View style={{paddingBottom:120}}>
+          <View style={{paddingBottom:160}}>
             <FlatList
               data={value=='sales'? order :filterOrders}
               keyExtractor={item => item.InvoiceNumber}

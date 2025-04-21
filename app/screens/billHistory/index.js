@@ -14,6 +14,7 @@ const BillHistory = props => {
   const [order, setOrders] = useState([]);
   const [filterOrders, setFilterOrder] = useState([]);
   const [search, setSearch] = useState('');
+  const [totalRecord, setTotalRecord] = useState(0);
   const [getDetails, setGetDetails] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState('Sales');
@@ -35,7 +36,7 @@ const BillHistory = props => {
     if (search) {
       
     const token = await AsyncStorage.getItem('MY_TOKEN');
-      setLoadmore(false);
+      
       let orderUrl = 
   (value === 'sales' ? GET_SALES_ORDERS : GET_PURCHASE_ORDERS) +
   'skip=1&next=30&filterText=' + encodeURIComponent(search) +
@@ -63,7 +64,7 @@ const BillHistory = props => {
   };
 
   const getOrders = async () => {
-    setLoading(true);
+    setLoadmore(true);
     const token = await AsyncStorage.getItem('MY_TOKEN');
     let num = value == 'sales' 
       ? order.length == 0
@@ -81,16 +82,15 @@ const BillHistory = props => {
     const res = await loadOrders(token, orderUrl);
     console.log('my orders', res.Data);
     if (res.Data !== null) {
+      setTotalRecord(res.Data[0]?.Total);
         setOrders(prevData => [...(prevData || []), ...res.Data]);
-      //  setFilterOrder(prevData => [...(prevData || []), ...res.Data]);
-      setLoading(false);
     }else{
-      setLoading(false);
       Alert.alert('Alert',"Record is not found.");
     }
+    setLoadmore(false);
   };
   const getPurchaseOrders = async () => {
-    setLoading(true);
+    setLoadmore(true);
     const token = await AsyncStorage.getItem('MY_TOKEN');
     let num = value !== 'sales' 
       ? filterOrders.length == 0
@@ -108,11 +108,12 @@ const BillHistory = props => {
     const res = await loadOrders(token, orderUrl);
     console.log('my orders', res.Data);
     if (res.Data !== null) {
+      setTotalRecord(res.Data[0]?.Total);
       // setOrders(prevData => [...(prevData || []), ...res.Data]);
   setFilterOrder(prevData => [...(prevData || []), ...res.Data]);
-      setLoading(false);
+      setLoadmore(false);
     }else{
-      setLoading(false);
+      setLoadmore(false);
       Alert.alert('Alert',"Record is not found.")
     }
   };
@@ -187,6 +188,7 @@ const BillHistory = props => {
   search={search}
   setSearch={setSearch}
   filterOrders={filterOrders}
+  totalRecord={totalRecord}
   />
   );
 };
