@@ -88,7 +88,7 @@ console.log('data............',data)
             labelColor: '#B5B9C0',
             lineColor: {
               grid: {
-                x: "#ffffff",
+                // x: "transparent",
                 y: '#B5B9C0',
               },
             },
@@ -103,7 +103,7 @@ console.log('data............',data)
             },
             lineWidth: {
               grid: {
-                x: sizeHelper.calHp(0), // Hides X grid lines
+                x: 0, // Hides X grid lines
                 y: sizeHelper.calHp(1), // Y grid lines are thin (1px)
               },
               frame: 0, // Removes the outer frame
@@ -210,9 +210,8 @@ console.log('data............',data)
 
 const styles = StyleSheet.create({
   nullGraph: {
-    margin:sizeHelper.calHp(20),
     resizeMode: 'center',
-    height: sizeHelper.calHp(450),
+    height: sizeHelper.calHp(500),
     width: '100%',
     alignSelf: 'center',
   },
