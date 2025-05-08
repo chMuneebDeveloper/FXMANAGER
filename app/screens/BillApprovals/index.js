@@ -26,25 +26,10 @@ const BillApprovals = ({navigation}) => {
   const [isLoading, setLoading] = useState(false);
   const [isLoadMore, setLoadMore] = useState(false);
   const [totalRecord, setTotalRecord] = useState(0);
-  const [pageNo, setPageNo] = useState(1);
-  const [getrecordLenght, setrecordLenght] = useState(0);
   const [value, setValue] = useState('pending');
   const [inputValue, setInputValue] = useState('');
   const [selectedItem, setSelectedItem] = useState(suitcaseArray[0]);
   const [isRefreshing, setIsRefreshing] = useState(false);
-  const [salebillsPending, setSalebillsPending] = useState([]);
-  const [salebillsApproved, setSalebillsApproved] = useState([]);
-  const [salebillsReject, setSalebillsReject] = useState([]);
-  const [purchasebillsPending, setPurchasebillsPending] = useState([]);
-  const [purchasebillsApproved, setPurchasebillsApproved] = useState([]);
-  const [purchasebillsReject, setPurchasebillsReject] = useState([]);
-  const [saleordersPending, setSaleordersPending] = useState([]);
-  const [saleordersApproved, setSaleordersApproved] = useState([]);
-  const [saleordersReject, setSaleordersReject] = useState([]);
-  const [purchaseordersPending, setPurchaseordersPending] = useState([]);
-  const [purchaseordersApproved, setPurchaseordersApproved] = useState([]);
-  const [purchaseordersReject, setPurchaseordersReject] = useState([]);
-
   const salePurchesTabs = [
     {
       id: 1,
@@ -70,22 +55,7 @@ const BillApprovals = ({navigation}) => {
   useEffect(() => {
     const clearAndFetch = async () => {
       setBills([]);
-      setSalebillsPending([]);
-      setSalebillsApproved([]);
-      setFilterBills([]);
-      setSalebillsReject([]);
-      setPurchasebillsPending([]);
-      setPurchasebillsApproved([]);
-      setPurchasebillsReject([]);
-      setSaleordersPending([]);
-      setSaleordersApproved([]);
-      setSaleordersReject([]);
-      setPurchaseordersPending([]);
-      setPurchaseordersApproved([]);
-      setPurchaseordersReject([]);
-      setPageNo(1);
       setInputValue('');
-      // Wait for one render frame to ensure state is cleared
       requestAnimationFrame(() => {
         const isOrderTab =
           selectedTab === 'purchaseorders' || selectedTab === 'saleorders';
@@ -104,13 +74,12 @@ const BillApprovals = ({navigation}) => {
 
   const goBack = () => navigation.goBack();
   const moveToProfile = () => navigation.navigate('profile');
-  console.log('value...1.....', value);
   const getBills = useCallback(
     async statusCode => {
       try {
         setLoading(true);
         setLoadMore(true);
-        const pageSize = 20;
+        const pageSize = 10000;
         const token = await AsyncStorage.getItem('MY_TOKEN');
 
         const billType =
@@ -118,73 +87,19 @@ const BillApprovals = ({navigation}) => {
             ? statusCode.sales
             : statusCode.purchase;
 
-        let recordLength = 0;
-
-        if (selectedTab === 'salebills') {
-          recordLength =
-            value === 'pending'
-              ? salebillsPending.length
-              : value === 'approved'
-              ? salebillsApproved.length
-              : salebillsReject.length;
-        }else if (selectedTab === 'purchasebills') {
-          recordLength =
-            value === 'pending'
-              ? purchasebillsPending.length
-              : value === 'approved'
-              ? purchasebillsApproved.length
-              : purchasebillsReject.length;
-        }else if (selectedTab === 'saleorders') {
-          recordLength =
-            value === 'pending'
-              ? saleordersPending.length
-              : value === 'approved'
-              ? saleordersApproved.length
-              : saleordersReject.length;
-        }else if (selectedTab === 'purchaseorders') {
-          recordLength =
-            value === 'pending'
-              ? purchaseordersPending.length
-              : value === 'approved'
-              ? purchaseordersApproved.length
-              : purchaseordersReject.length;
-        }
-
-
-        const page =
-          recordLength === 0 ? 1 : Math.ceil(recordLength / pageSize) + 1;
-        const url = `${GET_BILLS}${page}/${pageSize}/${billType}/${list.CultureCode}`;
+        // const page =
+        //   recordLength === 0 ? 1 : Math.ceil(recordLength / pageSize) + 1;
+        const url = `${GET_BILLS}${1}/${pageSize}/${billType}/${
+          list.CultureCode
+        }`;
 
         const res = await loadOrders(token, url);
         if (res.Data !== 'null') {
           const data = JSON.parse(res.Data);
           setTotalRecord(data[0].Total);
-
-          const appendData = setter =>
-            setter(prev => [...(prev || []), ...data]);
-
-          if (selectedTab === 'salebills') {
-            if (value === 'pending') appendData(setSalebillsPending);
-            else if (value === 'approved') appendData(setSalebillsApproved);
-            else if (value === 'rejected') appendData(setSalebillsReject);
-          } else if (selectedTab === 'purchasebills') {
-            if (value === 'pending') appendData(setPurchasebillsPending);
-            else if (value === 'approved') appendData(setPurchasebillsApproved);
-            else if (value === 'rejected') appendData(setPurchasebillsReject);
-          } else if (selectedTab === 'saleorders') {
-            if (value === 'pending') appendData(setSaleordersPending);
-            else if (value === 'approved') appendData(setSaleordersApproved);
-            else if (value === 'rejected') appendData(setSaleordersReject);
-          } else if (selectedTab === 'purchaseorders') {
-            if (value === 'pending') appendData(setPurchaseordersPending);
-            else if (value === 'approved')
-              appendData(setPurchaseordersApproved);
-            else if (value === 'rejected') appendData(setPurchaseordersReject);
-          }
-
-          appendData(setBills);
-          appendData(setFilterBills);
-        }else{
+          setFilterBills(data);
+          setBills(data);
+        } else {
           setTotalRecord(0);
         }
       } finally {
@@ -221,57 +136,11 @@ const BillApprovals = ({navigation}) => {
       const res = await fetchService(url, 'POST', token);
 
       if (res.ReturnMessage === 'Success') {
-        // setFilterBills(prev => prev.filter(b => b.InvoiceNumber !== BillNumber));
-        // setBills(prev => prev.filter(b => b.InvoiceNumber !== BillNumber));
-        const removeBillByNumber = setter => {
-          setter(prev => prev.filter(b => b.InvoiceNumber !== BillNumber));
-        };
-
-        if (selectedTab === 'salebills') {
-          if (value === 'pending') {
-            removeBillByNumber(setSalebillsPending);
-            setTotalRecord(totalRecord-1);
-          } else if (value === 'approved') {
-            removeBillByNumber(setSalebillsApproved);
-            setTotalRecord(totalRecord-1);
-          } else if (value === 'rejected') {
-            removeBillByNumber(setSalebillsReject);
-            setTotalRecord(totalRecord-1);
-          }
-        } else if (selectedTab === 'purchasebills') {
-          if (value === 'pending') {
-            removeBillByNumber(setPurchasebillsPending);
-            setTotalRecord(totalRecord-1);
-          } else if (value === 'approved') {
-            removeBillByNumber(setPurchasebillsApproved);
-            setTotalRecord(totalRecord-1);
-          } else if (value === 'rejected') {
-            removeBillByNumber(setPurchasebillsReject);
-            setTotalRecord(totalRecord-1);
-          }
-        } else if (selectedTab === 'saleorders') {
-          if (value === 'pending') {
-            removeBillByNumber(setSaleordersPending);
-            setTotalRecord(totalRecord-1);
-          } else if (value === 'approved') {
-            removeBillByNumber(setSaleordersApproved);
-            setTotalRecord(totalRecord-1);
-          } else if (value === 'rejected') {
-            removeBillByNumber(setSaleordersReject);
-            setTotalRecord(totalRecord-1);
-          }
-        } else if (selectedTab === 'purchaseorders') {
-          if (value === 'pending') {
-            removeBillByNumber(setPurchaseordersPending);
-            setTotalRecord(totalRecord-1);
-          } else if (value === 'approved') {
-            removeBillByNumber(setPurchaseordersApproved);
-            setTotalRecord(totalRecord-1);
-          } else if (value === 'rejected') {
-            removeBillByNumber(setPurchaseordersReject);
-            setTotalRecord(totalRecord-1);
-          }
-        }
+        setFilterBills(prev =>
+          prev.filter(b => b.InvoiceNumber !== BillNumber),
+        );
+        setBills(prev => prev.filter(b => b.InvoiceNumber !== BillNumber));
+        setTotalRecord(totalRecord - 1);
       } else {
         Alert.alert('Alert', res.ReturnMessage);
       }
@@ -336,7 +205,6 @@ const BillApprovals = ({navigation}) => {
   };
 
   const handleSelect = item => {
-    setPageNo(1);
     setValue(item.id);
     setSelectedItem(item);
     const isOrderTab =
@@ -392,26 +260,11 @@ const BillApprovals = ({navigation}) => {
       setInputValue={setInputValue}
       SearchRecord={SearchRecord}
       getApprovedBills={getApprovedBills}
-      pageNo={pageNo}
-      setPageNo={setPageNo}
       getPendingOrders={getPendingOrders}
       getApprovedOrders={getApprovedOrders}
       getRejectedOrders={getRejectedOrders}
       isRefreshing={isRefreshing}
       onRefresh={onRefresh}
-      salebillsPending={salebillsPending}
-      salebillsApproved={salebillsApproved}
-      salebillsReject={salebillsReject}
-      getrecordLenght={getrecordLenght}
-      purchasebillsPending={purchasebillsPending}
-      purchasebillsApproved={purchasebillsApproved}
-      purchasebillsReject={purchasebillsReject}
-      saleordersPending={saleordersPending}
-      saleordersApproved={saleordersApproved}
-      saleordersReject={saleordersReject}
-      purchaseordersPending={purchaseordersPending}
-      purchaseordersApproved={purchaseordersApproved}
-      purchaseordersReject={purchaseordersReject}
     />
   );
 };

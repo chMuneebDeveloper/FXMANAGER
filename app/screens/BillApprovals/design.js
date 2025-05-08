@@ -37,7 +37,6 @@ const Design = ({
   moveToProfile,
   suitcaseArray,
   selectedItem,
-  setSelectedItem,
   selectedTab,
   setSelectedTab,
   isLoading,
@@ -53,63 +52,13 @@ const Design = ({
   inputValue,
   setInputValue,
   SearchRecord,
-  pageNo,
-  setPageNo,
   salePurchesTabs,
   getPendingOrders,
   getApprovedOrders,
   getRejectedOrders,
   isRefreshing,
   onRefresh,
-  salebillsPending,
-  salebillsApproved,
-  salebillsReject,
-  getrecordLenght,
-  purchasebillsPending,
-  purchasebillsApproved,
-  purchasebillsReject,
-  saleordersPending,
-  saleordersApproved,
-  saleordersReject,
-  purchaseordersPending,
-  purchaseordersApproved,
-  purchaseordersReject,
 }) => {
-  let filterdata = [];
-  if (selectedTab == 'salebills') {
-    if (value == 'pending') {
-      filterdata = salebillsPending;
-    } else if (value == 'approved') {
-      filterdata = salebillsApproved;
-    } else {
-      filterdata = salebillsReject;
-    }
-  } else if (selectedTab == 'purchasebills') {
-    if (value == 'pending') {
-      filterdata = purchasebillsPending;
-    } else if (value == 'approved') {
-      filterdata = purchasebillsApproved;
-    } else {
-      filterdata = purchasebillsReject;
-    }
-  } else if (selectedTab == 'saleorders') {
-    if (value == 'pending') {
-      filterdata = saleordersPending;
-    } else if (value == 'approved') {
-      filterdata = saleordersApproved;
-    } else {
-      filterdata = saleordersReject;
-    }
-  } else if (selectedTab == 'purchaseorders') {
-    if (value == 'pending') {
-      filterdata = purchaseordersPending;
-    } else if (value == 'approved') {
-      filterdata = purchaseordersApproved;
-    } else {
-      filterdata = purchaseordersReject;
-    }
-  }
-
   const CardComponent = ({item, index}) => {
     return (
       <View key={index} style={styles.colorbodyContainer}>
@@ -199,7 +148,7 @@ const Design = ({
   };
 
   const listFooter = () => {
-    if (totalRecord == filterdata?.length || inputValue != '') return null;
+    if (totalRecord == filterBills?.length || inputValue != '') return null;
     return (
       // totalRecord && (
       <View>
@@ -225,12 +174,6 @@ const Design = ({
                   alignItems: 'center',
                 }}
                 onPress={() => {
-                  setPageNo(prev => {
-                    const newPage = prev + 1;
-                    // Now you can use newPage immediately
-                    // console.log('New Page:', newPage);
-                    return newPage;
-                  });
                   const isOrderTab =
                     selectedTab === 'purchaseorders' ||
                     selectedTab === 'saleorders';
@@ -267,7 +210,6 @@ const Design = ({
     return (
       <TouchableOpacity
         onPress={() => {
-          setPageNo(1);
           setSelectedTab(item.value);
         }}
         style={[
@@ -340,11 +282,10 @@ const Design = ({
 
       <View style={{marginVertical: sizeHelper.calHp(20)}}>
         <FlatList
-          // data={filterBills}
-          data={inputValue ? filterBills : filterdata}
+          data={filterBills}
           renderItem={CardComponent}
           onEndReachedThreshold={0.5}
-          windowSize={20}
+          windowSize={3}
           initialNumToRender={20}
           maxToRenderPerBatch={20}
           removeClippedSubviews={true}
@@ -353,9 +294,10 @@ const Design = ({
             paddingHorizontal: sizeHelper.calWp(30),
             paddingBottom: sizeHelper.calHp(480),
           }}
-
+          disableVirtualization={false}
+          legacyImplementation={false}
           refreshControl={
-            totalRecord == filterdata?.length ? null : (
+            totalRecord == filterBills?.length ? null : (
               <RefreshControl
                 refreshing={isRefreshing}
                 onRefresh={onRefresh}
