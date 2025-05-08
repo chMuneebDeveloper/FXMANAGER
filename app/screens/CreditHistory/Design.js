@@ -97,12 +97,12 @@ const Design = ({
           <Text style={styles.buttonText}>{'Receivables'}</Text>
         </TouchableOpacity>
       </View>
-      <View style={{marginVertical: sizeHelper.calHp(20), marginBottom: 210}}>
+      <View style={{marginVertical: sizeHelper.calHp(20),}}>
         <FlatList
           data={filterOrders}
           renderItem={CardComponent}
           keyExtractor={item => item.id}
-          contentContainerStyle={{paddingHorizontal: sizeHelper.calWp(30)}}
+          contentContainerStyle={{paddingHorizontal: sizeHelper.calWp(30),paddingBottom:sizeHelper.calHp(340)}}
         />
       </View>
       {isLoading && <Loading />}

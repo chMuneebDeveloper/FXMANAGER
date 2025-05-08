@@ -24,7 +24,6 @@ import {
   red,
   yellow,
 } from '../../constants/colors';
-import ToolTip from '../../components/ToolTip';
 import TwoLineGraph from '../../components/TwoLineGraph';
 import TopSoldProductComponent from '../../components/TopSoldProductComponent';
 import Icon from 'react-native-vector-icons/Feather';
@@ -52,7 +51,8 @@ const Design = ({
   moveToPurchesVsSale,
   moveToPayableVsReceivables,
   onRefresh,
-  refreshing
+  refreshing,
+  moveToBillApprovals
 }) => {
   const modalData = [
     {id: 1, label: 'Product A '},
@@ -195,6 +195,7 @@ const Design = ({
                   color: '#000000',
                 }}
               /> */}
+              {/* <View style={{flexDirection:'row'}}> */}
               <TouchableOpacity  style={styles.fileIcon} onPress={moveToPurchesVsSale}>
                 <Icon1
                   name="file-eye"
@@ -202,6 +203,15 @@ const Design = ({
                   color={"grey"}
                 />
               </TouchableOpacity>
+              <TouchableOpacity  style={[styles.fileIcon,{right:sizeHelper.screenWidth > 450? sizeHelper.calWp(90): sizeHelper.calWp(120)}]} onPress={moveToBillApprovals}>
+                <Icon1
+                  name="file-check"
+                  size={sizeHelper.calHp(45)}
+                  color={"grey"}
+                />
+              </TouchableOpacity>
+              {/* </View> */}
+              
             {/* </View> */}
           </View>
           <View style={styles.graphContainer}>

@@ -2,7 +2,8 @@ const getAPIBaseUrl = () => {
     let url = '';
     if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
       console.log('Development Mode');
-      url = 'https://livemanagerapi.finexcloud.com';
+      url = 'https://qamanagerapi.finexcloud.com';
+      // url = 'https://livemanagerapi.finexcloud.com';
     } else {
       console.log('Production Mode');
       url = 'https://livemanagerapi.finexcloud.com';
@@ -85,5 +86,22 @@ const getAPIBaseUrl = () => {
   
     export const GET_SPECIFIC_GODOWN_GRAPH =
     API_BASE_URL + '/Graph/SelectGraphsOnLoad?graphIds=400,401,402,403,404,405,406&goDownCode=';
-  
+
+    export const GET_BILLS=
+    API_BASE_URL + '/Approvals/SelectAllBills/';
+
+    export const APPROVE_SALE_BILLS=
+    API_BASE_URL + '/Approvals/PostAllSaleInvoices/';
+
+    export const APPROVE_PURCHASE_BILLS=
+    API_BASE_URL + '/Approvals/PostAllPurchaseInvoices/';
+
+    export const APPROVE_PURCHASE_ORDERS=
+    API_BASE_URL + '/Approvals/PostAllPurchaseOrders/';
+
+    export const APPROVE_SALE_ORDERS=
+    API_BASE_URL + '/Approvals/PostAllSaleOrders/';
+
+    export const SEEARCH_BILLS =
+    API_BASE_URL + '/Approvals/SearchBills/';
   

@@ -84,9 +84,11 @@ console.log('------------',data);
                   x={chartBounds.left }
                   y={10}
                   font={chartFont}
+
                   text={
-                    // `Counter No: ${pressState.x.value.value}
-                    `Sales: ${pressState.y.Amount.value.value.toFixed(2)? pressState.y.Amount.value.value.toFixed(2) : pressState.y.Count.value.value.toFixed(2)}`
+                    isActive 
+                      ? pressState.y.Amount.value.value.toFixed(2)
+                      : totalAmount.toFixed(2)
                   }
                   color={'#8270fd'}
                   style={'fill'}
@@ -151,7 +153,7 @@ const styles = StyleSheet.create({
   },
   nullGraph: {
     resizeMode: 'center',
-    height: sizeHelper.calHp(500),
+    height: '100%',
     width: '100%',
     alignSelf: 'center',
   },

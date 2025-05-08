@@ -163,7 +163,7 @@ const Design = ({
                 },
                 shadowOpacity: 0.2,
                 shadowRadius: 3.84,
-                backgroundColor: 'white', // important for shadows to show properly
+                backgroundColor: 'white',
               }}
             />
           </View>

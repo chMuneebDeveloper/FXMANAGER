@@ -165,7 +165,7 @@ const FinanceScreen = (props) => {
   };
 
   return (
-    <Design
+    <Design  
       moveToProfile={moveToProfile}
       TabsNavigations={TabsNavigations}
       isLoading={isLoading}

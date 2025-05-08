@@ -31,22 +31,12 @@
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>We need access to your camera</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
-	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
-	<key>UIRequiredDeviceCapabilities</key>
-	<array>
-		<string>arm64</string>
-	</array>
-	<key>UISupportedInterfaceOrientations</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>We need access to your microphone</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>
@@ -67,19 +57,38 @@
 		<string>SimpleLineIcons.ttf</string>
 		<string>Octicons.ttf</string>
 		<string>Zocial.ttf</string>
-    <string>InterSBold.ttf</string>
-    <string>InterRegular.ttf</string>
-    <string>InterMedium.ttf</string>
-    <string>InterExtraBold.ttf</string>
-    <string>InterBold.ttf</string>
-    <string>InterBlack.ttf</string>
-    <string>NotoSans-SBold.ttf</string>
-    <string>NotoSans-Bold.ttf</string>
-    <string>NotoSans-Regular.ttf</string>
+		<string>InterSBold.ttf</string>
+		<string>InterRegular.ttf</string>
+		<string>InterMedium.ttf</string>
+		<string>InterExtraBold.ttf</string>
+		<string>InterBold.ttf</string>
+		<string>InterBlack.ttf</string>
+		<string>NotoSans-SBold.ttf</string>
+		<string>NotoSans-Bold.ttf</string>
+		<string>NotoSans-Regular.ttf</string>
 	</array>
-	<key>NSCameraUsageDescription</key>
-	<string>We need access to your camera</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>We need access to your microphone</string>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>UIRequiredDeviceCapabilities</key>
+	<array>
+		<string>arm64</string>
+	</array>
+	<key>UIStatusBarHidden</key>
+	<false/>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
 </dict>
 </plist>

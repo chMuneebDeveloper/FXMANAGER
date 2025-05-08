@@ -112,29 +112,26 @@ console.log('data............',data)
           {({points, chartBounds}) => (
             <>
               <SKText
-                x={sizeHelper.calWp(145)}
+                x={sizeHelper.calWp(146)}
                 y={10}
                 font={chartFont}
                 text={
-                  // `Counter No: ${pressState.x.value.value}
-                  ` ${
-                    pressState
-                      ? pressState?.y?.Value?.value?.value?.toFixed(2)
-                      : pressState
-                  }`
+                  isActive 
+                    ? pressState?.y?.Value?.value?.value?.toFixed(2)
+                    : totalValue.toFixed(2)
                 }
                 color={firstLineColor}
                 style={'fill'}
               />
               <SKText
-                x={sizeHelper.screenWidth > 450? sizeHelper.calWp(470) : sizeHelper.calWp(460)}
+                x={sizeHelper.screenWidth > 450? sizeHelper.calWp(480) : sizeHelper.calWp(470)}
                 y={10}
                 font={chartFont}
-                text={` ${
-                  pressState
-                    ? pressState?.y?.Field4?.value?.value?.toFixed(2)
-                    : pressState
-                }`}
+                text={
+                  isActive
+                    ?  pressState?.y?.Field4?.value?.value?.toFixed(2)
+                    : totalField4.toFixed(2)
+                }
                 color={secondLineColor}
                 style={'fill'}
               />

@@ -93,7 +93,6 @@ const Design = ({
         <Header text={'Manager'} moveToProfile={moveToProfile} />
       </View>
       <NavigationHeader TabsNavigations={TabsNavigations} />
-      {data ? (
         <View>
           <FlatList
             data={data}
@@ -107,14 +106,14 @@ const Design = ({
                 colors={[blue1, blue2]}
               />
             }
+            ListEmptyComponent={
+              <View style={styles.emptyContainer}>
+              <Image source={require('../../assets/image/empty.png')} />
+              <Text style={styles.emptyText}>{'Record not found yet.'}</Text>
+            </View> 
+            }
           />
         </View>
-      ) : (
-        <View style={styles.container}>
-          <Image source={require('../../assets/image/empty.png')} />
-          <Text style={styles.emptyText}>{'Record not found yet.'}</Text>
-        </View>
-      )}
       <CustomAlert
         visible={isAlert}
         message={alertMessage}

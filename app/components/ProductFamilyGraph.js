@@ -80,8 +80,7 @@ const {state: pressState, isActive} = useChartPressState(INIT_STATE);
                 y={10}
                 font={chartFont}
                 text={
-                  // `Counter No: ${pressState.x.value.value}
-                  `Products : ${ pressState.y.Count.value.value.toFixed(2)}`
+                  `Products : ${isActive? pressState.y.Count.value.value.toFixed(2): totalCount.toFixed(2)}`
                 }
                 color={'#8270fd'}
                 style={'fill'}

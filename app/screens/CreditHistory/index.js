@@ -14,7 +14,7 @@ const CreditHistory = props => {
   ];
 
   const goBack = () => {
-    props.navigation.goBack();
+    props.navigation.replace('Procurement');
   };
 
   const moveToProfile = () => {

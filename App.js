@@ -1,11 +1,14 @@
 import RootStack from './app/navigation/RootStack';
 import {NavigationContainer} from '@react-navigation/native';
- const App = () => {
+import {MenuProvider} from 'react-native-popup-menu';
+const App = () => {
   return (
     <NavigationContainer>
-      <RootStack/>
+      <MenuProvider >
+        <RootStack />
+      </MenuProvider>
     </NavigationContainer>
   );
-}
+};
 
 export default App;

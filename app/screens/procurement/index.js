@@ -35,59 +35,16 @@ const ProcurementScreen = props => {
     {label: '6 Month', value: 1},
   ]);
   
-  // const loadGraphData = async (graphID, span) => {
-  //   let dashboardUrl = '';
-  //     setLoading(true);
-  //     const token = await AsyncStorage.getItem('MY_TOKEN');
-  //   dashboardUrl = GET_SPECIFIC_GRAPH + graphID + '&month=' + span;
-  //   try {
-  //     console.log(dashboardUrl,'---dashboardUrl')
-  //     const res = await  loadOrders(token, dashboardUrl);
-  //     if (res.Data !== null && Array.isArray(res.Data)) {
-  //       res.Data.forEach(element => {
-  //         element.Field4 = Number(Number(element.Field4).toFixed(0));
-  //         let half = String(element.StringText).slice(0, 3);
-  //         element.StringText = half;
-  //         let nam = element.StringText;
-  //         let isAlphaNumeric = /^[a-z0-9]+$/i.test(nam);
-  //         if (isAlphaNumeric) {
-  //         } else {
-  //           element.StringText = convertRtl(element.StringText);
-  //         }
-  //       });
-
-  //       let newData = dashBoardData;
-  //       newData.purchaseVSSaleGraph = res.Data;
-  //       setDashBoardData(newData);
-  //       setLoading(false);
-  //     } else if (res.message == 'Unauthorized') {
-  //       setContent(['Information', 'Session Expired']);
-  //       setDialogue(true);
-  //       setLoading(false);
-  //     }
-  //   } catch (e) {
-  //     console.error('error is', e);
-  //   }
-  // };
-
-  // useEffect(()=>{
-  //   if (valueMonth == '0') {
-  //     // setSelectedMenu('3 Months');
-  //     let graphID = '401';
-  //     loadGraphData(graphID, '3');
-  //   } else if (valueMonth == '1') {
-  //     // setSelectedMenu('6 Months');
-  //     let graphID = '401';
-  //     loadGraphData(graphID, '6');
-  //   }
-  // },[valueMonth])
-
   const moveToProfile = () => {
     props.navigation.navigate('profile');
   };
 
   const moveToPurchesVsSale =()=>{
     props.navigation.navigate('BillHistory');
+  }
+
+  const moveToBillApprovals =()=>{
+    props.navigation.navigate('BillApprovals');
   }
 
   const moveToPayableVsReceivables=()=>{
@@ -224,7 +181,7 @@ const ProcurementScreen = props => {
         setLoading(false);
         // alert('Session Expired');
         props.navigation.replace('Auth', {
-          screen: 'login',
+          screen: 'domainURL',
         });
       }
     } catch (e) {
@@ -359,7 +316,7 @@ const ProcurementScreen = props => {
         setLoading(false);
         // alert('Session Expired');
         props.navigation.replace('Auth', {
-          screen: 'login',
+          screen: 'domainURL',
         });
       }
     } catch (e) {
@@ -437,6 +394,7 @@ const ProcurementScreen = props => {
       moveToPayableVsReceivables={moveToPayableVsReceivables}
       onRefresh={onRefresh}
       refreshing={refreshing}
+      moveToBillApprovals={moveToBillApprovals}
     />
   );
 };

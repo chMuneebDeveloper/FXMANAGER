@@ -1,3 +1,4 @@
+import { Alert } from "react-native";
 import { CHECKDOMAINURL, SIGNIN } from "./constant";
 
 export const fetchApi = async (url, method, body, statusCode, token) => {
@@ -100,4 +101,5 @@ export const loginUser =async (payload )=> {
         return error;
       }
   };
+
 

@@ -31,7 +31,7 @@ let totalField4 = 0;
     totalValue += Number(item.Value);
     totalField4 += Number(item.Field4);
   });
-
+console.log('totalField4.............,',totalValue,totalField4)
 const INIT_STATE = {x: 0, y: {Value:   totalValue, Field4: totalField4}};
   const {state: pressState, isActive} = useChartPressState(INIT_STATE);
   const font = useFont(interSbold, sizeHelper.calHp(24));
@@ -88,7 +88,7 @@ console.log('data............',data)
             labelColor: '#B5B9C0',
             lineColor: {
               grid: {
-                // x: "transparent",
+                x: "#ffffff",
                 y: '#B5B9C0',
               },
             },
@@ -103,7 +103,7 @@ console.log('data............',data)
             },
             lineWidth: {
               grid: {
-                x: 0, // Hides X grid lines
+                x: sizeHelper.calHp(0), // Hides X grid lines
                 y: sizeHelper.calHp(1), // Y grid lines are thin (1px)
               },
               frame: 0, // Removes the outer frame
@@ -113,29 +113,28 @@ console.log('data............',data)
           {({points, chartBounds}) => (
             <>
               <SKText
-                x={sizeHelper.calWp(145)}
+                x={sizeHelper.calWp(146)}
                 y={10}
                 font={chartFont}
                 text={
-                  // `Counter No: ${pressState.x.value.value}
-                  ` ${
-                    pressState
-                      ? pressState?.y?.Value?.value?.value?.toFixed(2)
-                      : pressState
-                  }`
+                  isActive 
+                    ? pressState?.y?.Value?.value?.value?.toFixed(2)
+                    : totalValue.toFixed(2)
                 }
+              
                 color={firstLineColor}
                 style={'fill'}
               />
               <SKText
-                x={sizeHelper.screenWidth > 450? sizeHelper.calWp(470) : sizeHelper.calWp(460)}
+                x={sizeHelper.screenWidth > 450? sizeHelper.calWp(480) : sizeHelper.calWp(470)}
                 y={10}
                 font={chartFont}
-                text={` ${
-                  pressState
-                    ? pressState?.y?.Field4?.value?.value?.toFixed(2)
-                    : pressState
-                }`}
+                text={
+                  isActive
+                    ?  pressState?.y?.Field4?.value?.value?.toFixed(2)
+                    : totalField4.toFixed(2)
+                }
+              
                 color={secondLineColor}
                 style={'fill'}
               />
@@ -211,8 +210,9 @@ console.log('data............',data)
 
 const styles = StyleSheet.create({
   nullGraph: {
+    margin:sizeHelper.calHp(20),
     resizeMode: 'center',
-    height: sizeHelper.calHp(500),
+    height: sizeHelper.calHp(450),
     width: '100%',
     alignSelf: 'center',
   },

@@ -12,6 +12,7 @@ import PartnerStatementofAccounts from '../screens/PartnerStatementofAccounts/in
 import MainAccountsSummary from '../screens/MainAccountsSummary/index';
 import BillHistory from '../screens/billHistory/index';
 import CreditHistory from '../screens/CreditHistory/index';
+import BillApprovals from '../screens/BillApprovals/index';
 const Stack = createNativeStackNavigator();
 
 const MainStack = () => {
@@ -79,6 +80,11 @@ const MainStack = () => {
         options={{headerShown: false, animation: 'fade', gestureEnabled: false}}
         name={'CreditHistory'}
         component={CreditHistory}
+      /> 
+       <Stack.Screen
+        options={{headerShown: false, animation: 'fade', gestureEnabled: false}}
+        name={'BillApprovals'}
+        component={BillApprovals}
       /> 
     </Stack.Navigator>
     

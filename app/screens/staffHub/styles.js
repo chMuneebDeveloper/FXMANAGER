@@ -93,10 +93,11 @@ const styles = StyleSheet.create({
     fontFamily: 'InterSBold',
     paddingVertical: sizeHelper.calHp(30),
   },
-  container: {
+  emptyContainer: {
     justifyContent: 'center',
     flex: 1,
     alignItems: 'center',
+    paddingTop:'50%',
   },
   flatListStyle: {
     paddingBottom: sizeHelper.calHp(450),
